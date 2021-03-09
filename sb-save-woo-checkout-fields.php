@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: WooCommerce Checkout Field Save
-Plugin URI: https://hollerwp.com
+Plugin URI: https://hollerwp.com/save-woocommerce-checkout-form-values/
 Description: Save WooCommerce Checkout fields so they persist on a refresh or error.
 Version: 0.0.1
 Author: Scott Bolinger

@@ -48,8 +48,8 @@
 
                 if( !$(this)[0] ) return;
 
-                // don't save hidden inputs
-                if( $(this)[0].type === 'hidden' ) {
+                // don't save hidden or CC inputs
+                if( $(this)[0].type === 'hidden' || $(this)[0].classList.contains('__PrivateStripeElement-input') || $(this)[0].autocomplete === 'cc-number' ) {
                     return;
                 }
 

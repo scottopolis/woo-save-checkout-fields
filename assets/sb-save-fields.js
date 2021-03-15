@@ -4,6 +4,17 @@
 
     sbWoo.init = function() {
         sbWoo.checkStorage()
+        sbWoo.saveEmailListener();
+    }
+
+    sbWoo.saveEmailListener = function() {
+        $('#billing_email').on('blur', function(e) {
+            let email = e.target.value;
+            if( email && email.indexOf('@') > 0 && email.indexOf('.') > 0 ) {
+                sbWoo.sendEmail( email );
+                return;
+            }
+        });
     }
 
     // first we autofill the form with saved values, if they exist
@@ -74,6 +85,24 @@
 
             // save all values to browser storage on each change
             window.localStorage.setItem('sb_woo_form', JSON.stringify( wooForm ));
+        });
+    }
+
+    sbWoo.sendEmail = function( email ) {
+
+        $.ajax( {
+            url: sbSettings.root + 'sb/woo-custom',
+            method: 'POST',
+            beforeSend: function ( xhr ) {
+                xhr.setRequestHeader( 'nonce', "sb-woo-custom" );
+            },
+            data:{
+                'email' : email
+            }
+        } ).done( function ( response ) {
+            console.log( response );
+        } ).error( function( err ) {
+            console.warn(err.responseText);
         });
     }
 

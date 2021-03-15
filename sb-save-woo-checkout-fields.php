@@ -19,4 +19,22 @@ function sb_woo_scripts() {
     
     wp_enqueue_script( 'sb-save-fields', plugins_url( "assets/sb-save-fields.js", __FILE__ ), array( 'jquery' ), '0.0.1', true );
 
+    wp_localize_script( 'sb-save-fields', 'sbSettings', array(
+        'root' => esc_url_raw( rest_url() ),
+        'nonce' => wp_create_nonce( 'sb-woo-custom' )
+    ) );
+
+}
+
+require_once( plugin_dir_path( __FILE__ ) . 'inc/endpoints.php' );
+
+// make email the first field
+add_filter( 'woocommerce_checkout_fields', 'sb_edit_checkout_fields' );
+
+function sb_edit_checkout_fields( $fields ) {
+
+    // make email first
+    $fields['billing']['billing_email']['priority'] = 4;
+	return $fields;
+
 }

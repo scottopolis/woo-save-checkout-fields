@@ -12,7 +12,7 @@ function sb_woo_endpoints() {
 
 function sb_save_email( $request ) {
     // use this action to save the email to your abandoned cart flow
-    do_action('sb_woo_email', $request['email'], $request );
+    do_action('sb_woo_checkout_email', $request['email'], $request );
     return $request['email'];
 }
 
